@@ -1,59 +1,33 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const bytes = fs.readFileSync(`${__dirname}/global.wasm`);
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const wasmBytes = readFileSync(join(__dirname, "global.wasm"));
 
 async function main() {
-  // Create a global
   const global = new WebAssembly.Global({ value: "i32", mutable: true }, 42);
 
-  // Loads wasm code
-  let wasmCode = new Uint8Array(bytes);
+  const wasmModule = await WebAssembly.compile(wasmBytes);
 
-  // Compiles wasm module
-  let wasmModule = await WebAssembly.compile(wasmCode);
-
-  // List Imports Specification
-  for (let _import of WebAssembly.Module.imports(wasmModule)) {
-    console.log(`Import Spec -- ${JSON.stringify(_import)}`);
+  for (const spec of WebAssembly.Module.imports(wasmModule)) {
+    console.log(`Import Spec -- ${JSON.stringify(spec)}`);
+  }
+  for (const spec of WebAssembly.Module.exports(wasmModule)) {
+    console.log(`Export Spec -- ${JSON.stringify(spec)}`);
   }
 
-  // List Exports Specification
-  for (let _export of WebAssembly.Module.exports(wasmModule)) {
-    console.log(`Export Spec -- ${JSON.stringify(_export)}`);
+  const importObject = { js: { global } };
+  const instance = await WebAssembly.instantiate(wasmModule, importObject);
+
+  for (const name of Object.keys(instance.exports)) {
+    console.log(`Export Actual -- name: ${name}, type ${typeof instance.exports[name]}`);
   }
 
-  // Create Import Object that Matches Specification
-  let importObject = {
-    js: {
-      global: global,
-    },
-  };
-
-  // Instantiate with Import Object
-  let wasmInstance = await WebAssembly.instantiate(wasmModule, importObject);
-
-  // List Actual Exports
-  for (let _export in wasmInstance.exports) {
-    console.log(
-      `Export Actual -- name: ${_export}, type ${typeof wasmInstance.exports[
-        _export
-      ]}`
-    );
-  }
-
-  // Call An Export
-  wasmInstance.exports.incGlobal();
-  wasmInstance.exports.incGlobal();
-  wasmInstance.exports.incGlobal();
+  instance.exports.incGlobal();
+  instance.exports.incGlobal();
+  instance.exports.incGlobal();
   console.log(`${global.value}`);
-
-  // Destroy Instance?
-
-  // Call global
 }
 
 main();
