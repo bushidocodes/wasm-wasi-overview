@@ -39,4 +39,4 @@ async function main() {
   console.log(`Result ${instance.exports.accumulate(0, 10)}`);
 }
 
-main();
+main().catch((err) => { console.error(err); process.exit(1); });
