@@ -30,4 +30,4 @@ async function main() {
   console.log(`${global.value}`);
 }
 
-main();
+main().catch((err) => { console.error(err); process.exit(1); });

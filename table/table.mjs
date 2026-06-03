@@ -38,4 +38,4 @@ async function main() {
   console.log(`Table Elem 1 res ${table.get(1)()}`);
 }
 
-main();
+main().catch((err) => { console.error(err); process.exit(1); });
