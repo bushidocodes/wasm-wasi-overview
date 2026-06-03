@@ -2,7 +2,7 @@
   "name": "wasm-wasi-overview",
   "version": "1.0.0",
   "private": true,
-  "description": "Minimal Node.js examples that walk through the four WebAssembly import/export kinds (function, global, memory, table) and a small WASI program showing how imports resolve to ELF symbols.",
+  "description": "Minimal Node.js examples that walk through the four WebAssembly import/export kinds (function, global, memory, table).",
   "type": "module",
   "scripts": {
     "example:function": "node function/function.mjs",
