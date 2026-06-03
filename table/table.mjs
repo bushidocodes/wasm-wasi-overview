@@ -8,10 +8,9 @@ const wasmBytes = readFileSync(join(__dirname, "table.wasm"));
 async function main() {
   const table = new WebAssembly.Table({
     element: "anyfunc",
-    initial: 1,
+    initial: 2,
     maximum: 10,
   });
-  table.grow(1);
 
   const wasmModule = await WebAssembly.compile(wasmBytes);
 
