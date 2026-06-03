@@ -2,8 +2,7 @@
 
 A small set of runnable Node.js examples that walk through the four kinds of
 things a WebAssembly module can import or export — **function**, **global**,
-**memory**, **table** — plus a frozen WASI artifact set showing how imports
-resolve to ELF symbols after compilation.
+**memory**, **table**.
 
 The examples are deliberately minimal. Each pairs a hand-written `.wat`
 module with a `.mjs` host program that compiles it, inspects its
@@ -70,18 +69,6 @@ and 1, which are then called from JS via `table.get(i)()`.
 - [`table.wat`](table/table.wat) — imports `js.tbl`
 - [`table.mjs`](table/table.mjs)
 
-## The WASI / ELF example
-
-[`sledge_example/`](sledge_example/) holds a small WASI C program plus the
-build artifacts (`.bc`, `.so`, `.wasm`) generated from it. The intent is to
-show how a wasm import declared in C with `__import_module__` /
-`__import_name__` attributes survives compilation and shows up as a symbol
-that a host (like the [Sledge](https://github.com/gwsystems/sledge-serverless-framework)
-serverless runtime) can resolve at load time.
-
-See [`sledge_example/README.md`](sledge_example/README.md) and the source in
-[`sledge_example/importexport.c`](sledge_example/importexport.c).
-
 ## Reference notes
 
 [`notes.md`](notes.md) collects the conceptual material the examples back up:
@@ -97,7 +84,6 @@ the spec and Wasmtime docs.
 ├── global/            # global import example
 ├── memory/            # memory import example
 ├── table/             # table import example
-├── sledge_example/    # WASI C source + compiled artifacts
 ├── notes.md           # reference notes on the WebAssembly model
 └── package.json       # run scripts, no dependencies
 ```
