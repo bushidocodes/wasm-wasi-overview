@@ -70,4 +70,5 @@
 
 - Wasmtime C example is instructive: https://docs.wasmtime.dev/examples-c-hello-world.html
 - Proposed WebAssembly extensions: https://webassembly.org/roadmap/
-- Interface Types: https://github.com/WebAssembly/module-linking/blob/master/proposals/module-linking/Explainer.md
+- Component Model (supersedes module-linking): https://github.com/WebAssembly/component-model
+- Interface Types (merged into Component Model): https://github.com/WebAssembly/interface-types
