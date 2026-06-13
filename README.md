@@ -95,11 +95,21 @@ rebuild them from the `.wat` sources, install
 [wabt](https://github.com/WebAssembly/wabt) and run:
 
 ```sh
+npm run build
+```
+
+which is equivalent to:
+
+```sh
 wat2wasm function/function.wat -o function/function.wasm
 wat2wasm global/global.wat   -o global/global.wasm
 wat2wasm memory/memory.wat   -o memory/memory.wasm
 wat2wasm table/table.wat     -o table/table.wasm
 ```
+
+CI rebuilds the binaries from source and fails if the committed `.wasm`
+files drift from their `.wat` sources, so remember to commit the rebuilt
+binaries after editing any `.wat` file.
 
 ## License
 

@@ -13,4 +13,10 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 20
+      - name: Install wabt (wat2wasm)
+        run: sudo apt-get update && sudo apt-get install -y wabt
+      - name: Rebuild .wasm from .wat sources
+        run: npm run build
+      - name: Fail if committed .wasm drifted from .wat sources
+        run: git diff --exit-code -- '*.wasm'
       - run: npm run examples
