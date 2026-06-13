@@ -5,6 +5,7 @@
   "description": "Minimal Node.js examples that walk through the four WebAssembly import/export kinds (function, global, memory, table).",
   "type": "module",
   "scripts": {
+    "build": "wat2wasm function/function.wat -o function/function.wasm && wat2wasm global/global.wat -o global/global.wasm && wat2wasm memory/memory.wat -o memory/memory.wasm && wat2wasm table/table.wat -o table/table.wasm",
     "example:function": "node function/function.mjs",
     "example:global": "node global/global.mjs",
     "example:memory": "node memory/memory.mjs",
