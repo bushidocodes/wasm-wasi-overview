@@ -13,7 +13,7 @@
     "examples": "npm run example:function && npm run example:global && npm run example:memory && npm run example:table"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "license": "MIT"
 }
