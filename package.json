@@ -4,13 +4,14 @@
   "private": true,
   "description": "Minimal Node.js examples that walk through the four WebAssembly import/export kinds (function, global, memory, table).",
   "type": "module",
+  "packageManager": "pnpm@11.5.0",
   "scripts": {
     "build": "wat2wasm function/function.wat -o function/function.wasm && wat2wasm global/global.wat -o global/global.wasm && wat2wasm memory/memory.wat -o memory/memory.wasm && wat2wasm table/table.wat -o table/table.wasm",
     "example:function": "node function/function.mjs",
     "example:global": "node global/global.mjs",
     "example:memory": "node memory/memory.mjs",
     "example:table": "node table/table.mjs",
-    "examples": "npm run example:function && npm run example:global && npm run example:memory && npm run example:table"
+    "examples": "pnpm run example:function && pnpm run example:global && pnpm run example:memory && pnpm run example:table"
   },
   "engines": {
     "node": ">=22"
