@@ -10,13 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
       - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: pnpm
       - name: Install wabt (wat2wasm)
         run: sudo apt-get update && sudo apt-get install -y wabt
       - name: Rebuild .wasm from .wat sources
-        run: npm run build
+        run: pnpm run build
       - name: Fail if committed .wasm drifted from .wat sources
         run: git diff --exit-code -- '*.wasm'
-      - run: npm run examples
+      - run: pnpm run examples
